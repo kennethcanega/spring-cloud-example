@@ -19,7 +19,7 @@ jobs:
           java-version: 8
 
       - name: Build JAR
-        run: ./gradlew build
+        run: mvn clean package
 
       - name: Docker Build and Push
         env:
