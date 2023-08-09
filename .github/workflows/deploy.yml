@@ -16,7 +16,8 @@ jobs:
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
-          java-version: 8
+          java-version: '8'
+          distribution: 'zulu'
 
       - name: Build JAR
         run: mvn clean package
