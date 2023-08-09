@@ -24,7 +24,7 @@ jobs:
 
       - name: Docker Build and Push
         env:
-          ECR_REGISTRY: ec2-54-253-232-51.ap-southeast-2.compute.amazonaws.com
+          ECR_REGISTRY: 755364964926.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: attendance-reports
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA .
