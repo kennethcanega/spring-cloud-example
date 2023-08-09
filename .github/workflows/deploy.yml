@@ -19,15 +19,23 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
 
-      - name: Build JAR
-        run: mvn clean package
+      # Your other steps go here
 
       - name: Docker Build and Push
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          AWS_REGION: us-east-1
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA .
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
+
+# Define dependencies
+dependencies:
+  - set-up-jdk
+  - checkout-code
+
+# Define workflow level dependencies
+workflow_dispatch:
+  jobs:
+    - build
