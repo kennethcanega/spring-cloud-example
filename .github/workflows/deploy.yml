@@ -50,6 +50,8 @@ jobs:
 
       - name: Docker Build and Push
         run: |
+          echo ECR_REGISTRY=$ECR_REGISTRY
+          echo ECR_REPOSITORY=$ECR_REPOSITORY
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA .
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
