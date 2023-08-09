@@ -24,9 +24,10 @@ jobs:
 
       - name: Docker Build and Push
         env:
-          ECR_REGISTRY: 755364964926.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: attendance-reports
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          AWS_REGION: us-east-1
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA .
-          docker login -u AWS -p $(aws ecr get-login-password) $ECR_REGISTRY
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
