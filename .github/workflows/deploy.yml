@@ -90,7 +90,7 @@ jobs:
         run: |
           echo ECR_REGISTRY=$ECR_REGISTRY
                     echo ECR_REPOSITORY=$ECR_REPOSITORY
-          aws ecr get-login-password --region  us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY
+          ssh -o StrictHostKeyChecking=no ec2-user@REMOTE_SERVER_IP 'export ECR_REGISTRY=your_ecr_registry; export ECR_REPOSITORY=your_ecr_repository; aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker stop web-attendance-reports || true'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker rm web-attendance-reports || true'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker pull "${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"'
