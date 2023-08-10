@@ -88,7 +88,9 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          aws ecr get-login-password --region  us-east-1 | docker login --username AWS --password-stdin "${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}"
+          echo ECR_REGISTRY=$ECR_REGISTRY
+                    echo ECR_REPOSITORY=$ECR_REPOSITORY
+          aws ecr get-login-password --region  us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker stop web-attendance-reports || true'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker rm web-attendance-reports || true'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker pull "${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"'
