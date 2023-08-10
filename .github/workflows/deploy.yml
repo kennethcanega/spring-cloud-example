@@ -90,5 +90,5 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker stop web-attendance-reports || true'
           ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker rm web-attendance-reports || true'
-          ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA'
-          ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker run -d -p 8080:8080 --name web-attendance-reports $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA'
+          ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker pull "${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"'
+          ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 'docker run -d -p 8080:8080 --name web-attendance-reports "${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"'
