@@ -92,7 +92,7 @@ jobs:
               ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}
               GITHUB_SHA=${{ github.sha }}
 
-              ssh -o StrictHostKeyChecking=no ec2-user@54.253.232.51 << EOF
+              ssh -o StrictHostKeyChecking=no ec2-user@13.236.137.81 << EOF
               aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY
               docker stop web-attendance-reports || true
               docker rm web-attendance-reports || true
