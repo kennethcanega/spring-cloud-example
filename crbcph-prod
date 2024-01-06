@@ -1,0 +1,7 @@
+api.ushering.url=PROD
+
+# Database Configuration for dev environment
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
+spring.datasource.username=postgresprod
+spring.datasource.password=postgresprod
+spring.datasource.driver-class-name=org.postgresql.Driver
